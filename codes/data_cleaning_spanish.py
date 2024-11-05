@@ -42,8 +42,23 @@ for filename in os.listdir(directory):
             c+=1
     except Exception as e:
         print('Failed: ', filename)
-    if c == 10:
-        break
+    # if c == 10:
+    #     break
+
+
+# dft = pd.read_csv('data/spanish.csv')
 output = output.merge(meta_data, on='participant', how='left')
-output.to_csv('spanish_short.csv', encoding = 'utf-8-sig', index = False)
+output.to_csv('data/spanish2.csv', encoding = 'utf-8-sig', index = False)
+features = ['Fp1', 'Fpz', 'Fp2', 'F7', 'F3', 'Fz', 'F4', 'F8', 'FC5', 'FC1',
+            'FC2', 'FC6', 'T7', 'C3', 'Cz', 'C4', 'T8', 'CP5', 'CP1', 'CP2', 'CP6',
+            'P7', 'P3', 'Pz', 'P4', 'P8', 'POz', 'O1', 'Oz', 'O2']
+for f in features:
+    df_f = output.pivot(
+        index=['word', 'participant', 'prime', 'target', 'word_type', "spanish","french","german","other"],  # Rows
+        columns='time',  # Use the unique index as columns
+        values=f  # Values to aggregate
+    ).reset_index()
+    df_f.to_csv(f'data/spanish/{f}.csv', encoding = 'utf-8-sig', index=False)  # Save to a CSV if desired
+
+
 # df

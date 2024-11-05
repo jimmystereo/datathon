@@ -72,4 +72,3 @@ for f in features:
         values=f  # Values to aggregate
     ).reset_index()
     df_f.to_csv(f'transposed/{f}.csv', encoding = 'utf-8-sig', index=False)  # Save to a CSV if desired
-
